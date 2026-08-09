@@ -1,0 +1,507 @@
+/* ═══════════════════════════════════════════════════════════════════
+   TUȘE DESIGN SYSTEM — FOUNDATION v1.0
+   Generated from design-system/tuse.tokens.json
+
+   Three tiers. Consume the third; reference the second; never the first.
+     1. --tuse-{ramp}-{step}   primitives — raw values, theme-independent
+     2. --color-*, --text-*    semantic   — meaning, resolves per theme
+     3. --btn-*, --input-*     component  — application
+
+   Theming: default is light. Dark applies via [data-theme="dark"] or,
+   when unset, the user's system preference. Explicit attribute wins.
+   ═══════════════════════════════════════════════════════════════════ */
+
+:root {
+  /* ── PRIMITIVE · NEUTRAL (Ink) ────────────────────────────── */
+  --tuse-neutral-0:    #FFFFFF;
+  --tuse-neutral-25:   #FBFAF8;   /* chalk   */
+  --tuse-neutral-50:   #F3F1ED;   /* chalk-2 */
+  --tuse-neutral-100:  #E9E6E0;
+  --tuse-neutral-200:  #E2DED6;   /* stone   */
+  --tuse-neutral-300:  #CFC9BF;
+  --tuse-neutral-400:  #A9A296;
+  --tuse-neutral-500:  #7D766B;
+  --tuse-neutral-600:  #5A544B;
+  --tuse-neutral-700:  #3D3830;
+  --tuse-neutral-800:  #272219;
+  --tuse-neutral-900:  #16130F;   /* ink     */
+  --tuse-neutral-950:  #0C0A08;
+
+  /* ── PRIMITIVE · RED (Signal → Oxblood → Night) ───────────── */
+  --tuse-red-50:    #FFF1F1;
+  --tuse-red-100:   #FFDCDC;
+  --tuse-red-200:   #FFB8B8;
+  --tuse-red-300:   #FF8A87;
+  --tuse-red-400:   #FF5A52;
+  --tuse-red-500:   #FF3B30;   /* ember        */
+  --tuse-red-600:   #E7000B;   /* signal       */
+  --tuse-red-700:   #BE0009;
+  --tuse-red-800:   #8E0208;
+  --tuse-red-900:   #5C0408;   /* oxblood      */
+  --tuse-red-950:   #3A0205;   /* oxblood-deep */
+  --tuse-red-975:   #43040A;   /* ticket surface — v2 */
+  --tuse-red-1000:  #2B0103;   /* night        */
+
+  /* Device chrome — physical hardware only. NEVER a UI surface. */
+  --device-bezel-hi: #413b34;  --device-bezel-mid: #3a342d;
+  --device-bezel-lo: #211d18;  --device-button:    #4a443c;
+
+  /* ── PRIMITIVE · GREEN / GOLD / STEEL ─────────────────────── */
+  --tuse-green-50:  #EAF9F0;  --tuse-green-100: #C9F0DA;  --tuse-green-200: #7CE8A9;
+  --tuse-green-300: #6FD79B;
+  --tuse-green-500: #2EBD6B;  --tuse-green-700: #1B8B4C;  --tuse-green-800: #177A43;
+  --tuse-green-900: #0E4F2B;
+
+  --tuse-gold-50:   #FBF4E7;  --tuse-gold-100:  #F4E3C2;  --tuse-gold-300:  #E6C486;
+  --tuse-gold-500:  #D8A24A;  --tuse-gold-700:  #A97A2F;  --tuse-gold-800:  #8A6224;
+  --tuse-gold-900:  #6B4C1B;
+
+  --tuse-steel-50:  #EDF4F7;  --tuse-steel-100: #CFE2EA;  --tuse-steel-300: #7FB0C4;
+  --tuse-steel-500: #1F6F8B;  --tuse-steel-700: #155268;  --tuse-steel-900: #0C3140;
+
+  /* ── TYPOGRAPHY · families, weights ───────────────────────── */
+  --font-display: "Newsreader", "Noto Serif", Georgia, serif;
+  --font-body:    "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono:    ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+
+  /* ── TYPOGRAPHY · tracking ────────────────────────────────── */
+  --tracking-display-xl: -0.03em;
+  --tracking-display:    -0.028em;
+  --tracking-heading:    -0.02em;
+  --tracking-subheading: -0.01em;
+  --tracking-body:        0;
+  --tracking-wide:        0.02em;
+  --tracking-label:       0.14em;
+  --tracking-eyebrow:     0.18em;
+  --tracking-eyebrow-xl:  0.2em;
+
+  /* ── TYPOGRAPHY · leading ─────────────────────────────────── */
+  --leading-display-tight: 0.97;
+  --leading-display:       1.04;
+  --leading-heading:       1.12;
+  --leading-subheading:    1.16;
+  --leading-snug:          1.3;
+  --leading-control:       1.5;
+  --leading-body:          1.62;
+  --leading-relaxed:       1.66;
+  --leading-address:       1.9;
+
+  /* ── TYPOGRAPHY · measure ─────────────────────────────────── */
+  --measure-tight:   44ch;
+  --measure-body:    60ch;
+  --measure-prose:   70ch;
+  --measure-display: 20ch;
+
+  /* ── TYPOGRAPHY · fluid size scale ────────────────────────── */
+  --size-display-xl: clamp(2.5rem, 1rem + 6.4vw, 6.5rem);
+  --size-display-lg: clamp(2rem, 1.05rem + 4.2vw, 4.375rem);
+  --size-display-md: clamp(1.625rem, 1.15rem + 2.1vw, 2.625rem);
+  --size-h3:         clamp(1.1875rem, 1.05rem + 0.6vw, 1.5rem);
+  --size-h4:         1.4375rem;
+  --size-h5:         1.125rem;
+  --size-h6:         1.0625rem;
+  --size-h-22:       1.375rem;   /* v2: missing rung */
+  --size-h-20:       1.25rem;    /* v2: missing rung */
+  --size-body-lg:    clamp(1rem, 0.96rem + 0.18vw, 1.1875rem);
+  --size-body:       1rem;
+  --size-body-sm:    0.875rem;
+  --size-body-xs:    0.8125rem;  /* v2: 13px, used 8x, had no token */
+  --size-caption:    0.75rem;
+  --size-label:      0.6875rem;
+  --size-label-sm:   0.625rem;
+  --size-input:      0.9375rem;
+  /* DEPRECATED — half-pixel sizes do not survive translation to native.
+     9.5→10  10.5→10  11.5→12  12.5→13  14.5→14 */
+
+  /* ── SPACING ──────────────────────────────────────────────
+     v2 amendment 1: the codebase is 4-point at component scale
+     and 8-point at layout scale. 134 declarations proved it.
+     Inside a component step by 4. Between components step by 8. */
+  --space-0: 0;        --space-2: 0.125rem;  --space-4: 0.25rem;
+  --space-6: 0.375rem; --space-8: 0.5rem;    --space-10: 0.625rem;
+  --space-12: 0.75rem; --space-14: 0.875rem; --space-16: 1rem;
+  --space-18: 1.125rem;--space-20: 1.25rem;  --space-22: 1.375rem;
+  --space-24: 1.5rem;  --space-28: 1.75rem;  --space-32: 2rem;
+  --space-36: 2.25rem; --space-40: 2.5rem;   --space-44: 2.75rem;
+  --space-48: 3rem;    --space-56: 3.5rem;   --space-64: 4rem;
+  --space-80: 5rem;    --space-88: 5.5rem;   --space-96: 6rem;
+  --space-120: 7.5rem; --space-160: 10rem;
+
+  /* ── SPACING · fluid rhythm ───────────────────────────────── */
+  --space-section:       clamp(3.75rem, 9vw, 10rem);
+  --space-section-tight: clamp(3rem, 6vw, 6rem);
+  --space-block:         clamp(2rem, 5vw, 3.5rem);
+  --space-gutter:        clamp(1.25rem, 4.6vw, 4.5rem);
+
+  /* ── RADIUS ───────────────────────────────────────────────── */
+  --radius-none: 0;
+  --radius-xs: 2px;     /* DEFAULT */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 16px;
+  --radius-full: 99px;
+  --radius-circle: 50%;
+  /* v2 amendment 6: message bubbles. The sharp corner points at the speaker. */
+  --radius-bubble-start: 3px 10px 10px 10px;
+  --radius-bubble-end:   10px 10px 10px 3px;
+
+  /* ── BORDER ───────────────────────────────────────────────── */
+  --border-thin: 1px;
+  --border-default: 1px;
+  --border-strong: 1.5px;
+  --border-heavy: 2px;
+  --border-focus: 2px;
+
+  /* ── MOTION ───────────────────────────────────────────────── */
+  /* v2 amendment 3: 300ms is the 2nd most-used duration in the
+     product and had no token; 200ms is 4th. Both added. */
+  --duration-instant:   80ms;
+  --duration-fast:     180ms;  /* button feedback */
+  --duration-quick:    200ms;
+  --duration-normal:   250ms;  /* DEFAULT */
+  --duration-settle:   300ms;
+  --duration-moderate: 350ms;
+  --duration-slow:     500ms;
+  --duration-very-slow:900ms;
+
+  --ease-standard:   cubic-bezier(0.22, 0.61, 0.36, 1);  /* DEFAULT — the Tușe curve */
+  --ease-accelerate: cubic-bezier(0.4, 0, 1, 1);
+  --ease-decelerate: cubic-bezier(0, 0, 0.2, 1);
+  --ease-emphasized: cubic-bezier(0.2, 0, 0, 1);
+  --ease-spring:     cubic-bezier(0.34, 1.4, 0.5, 1);
+  --ease-linear:     linear;
+
+  --stagger-tight: 55ms;
+  --stagger-default: 80ms;
+  --stagger-loose: 140ms;
+
+  /* Composed transitions — prefer these over ad-hoc declarations */
+  --transition-hover:  color var(--duration-normal) var(--ease-standard),
+                       background-color var(--duration-normal) var(--ease-standard),
+                       border-color var(--duration-normal) var(--ease-standard);
+  --transition-button: transform var(--duration-fast) var(--ease-standard),
+                       background-color var(--duration-normal) var(--ease-standard),
+                       border-color var(--duration-normal) var(--ease-standard);
+  --transition-card:   transform var(--duration-moderate) var(--ease-standard),
+                       box-shadow var(--duration-moderate) var(--ease-standard);
+  --transition-sheet:  transform var(--duration-slow) var(--ease-standard),
+                       visibility var(--duration-slow);
+  --transition-nav:    background-color var(--duration-moderate) var(--ease-standard),
+                       color var(--duration-moderate) var(--ease-standard),
+                       border-color var(--duration-moderate) var(--ease-standard);
+
+  /* ── LAYOUT ───────────────────────────────────────────────── */
+  --container-max: 1400px;
+  --content-max: 70ch;
+  --nav-height: 60px;
+  --touch-target: 48px;
+
+  --safe-top:    env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-left:   env(safe-area-inset-left, 0px);
+  --safe-right:  env(safe-area-inset-right, 0px);
+
+  /* ── ICONS ────────────────────────────────────────────────── */
+  --icon-xs: 14px; --icon-sm: 16px; --icon-md: 19px;
+  --icon-lg: 22px; --icon-xl: 24px; --icon-2xl: 32px;
+  --icon-stroke-hairline: 1.5px;
+  --icon-stroke: 1.7px;       /* DEFAULT */
+  --icon-stroke-strong: 2px;
+  --icon-stroke-heavy: 2.4px;
+
+  /* ── ELEVATION ────────────────────────────────────────────── */
+  --shadow-level0: none;
+  --shadow-level1: 0 10px 26px -18px rgba(22,19,15,0.5);
+  --shadow-level2: 0 24px 48px -28px rgba(22,19,15,0.3);
+  --shadow-level3: 0 30px 70px -40px rgba(22,19,15,0.35);
+  --shadow-level4: 0 40px 80px -30px rgba(0,0,0,0.6);
+  --shadow-floating: 0 12px 40px -20px rgba(0,0,0,0.6);
+  --shadow-dropdown: 0 24px 60px -40px rgba(22,19,15,0.35);
+  --shadow-popover: 0 4px 12px rgba(0,0,0,0.45);
+  --shadow-modal: 0 40px 80px -30px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.08);
+  --shadow-focus: 0 0 0 3px var(--color-focus-halo);
+  --shadow-inset-screen: inset 0 0 0 1px rgba(0,0,0,0.55);
+}
+
+@media (min-width: 900px) {
+  :root { --nav-height: 76px; }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   SEMANTIC — LIGHT (default)
+   ═══════════════════════════════════════════════════════════════════ */
+:root,
+:root[data-theme="light"] {
+  color-scheme: light;
+
+  --color-background:       var(--tuse-neutral-25);
+  --color-surface:          var(--tuse-neutral-0);
+  --color-surface-recessed: var(--tuse-neutral-50);
+  --color-surface-elevated: var(--tuse-neutral-0);
+  --color-surface-inverse:  var(--tuse-red-1000);
+  --color-card:             var(--tuse-neutral-25);
+  --color-overlay:          rgba(22,19,15,0.58);
+  --color-scrim:            rgba(22,19,15,0.28);
+
+  --text-heading:  var(--tuse-neutral-900);        /* 17.75:1 */
+  --text-body:     rgba(22,19,15,0.64);            /*  5.49:1 */
+  --text-muted:    rgba(22,19,15,0.60);            /*  4.79:1 — was 52% on the site, which measured 3.67:1 and failed AA */
+  --text-disabled: var(--tuse-neutral-400);
+  --text-on-primary: var(--tuse-neutral-0);
+  --text-on-inverse: var(--tuse-neutral-0);
+  --text-link:       var(--tuse-red-900);
+  /* Signal red is only 3.97:1 on the night ground — it fails AA as small
+     text in dark mode. Use --text-accent for type, --color-primary for
+     fills and borders. Never set small type in --color-primary. */
+  --text-accent:     var(--tuse-red-600);
+  --text-link-hover: var(--tuse-red-600);
+
+  --color-primary:        var(--tuse-red-600);
+  --color-primary-hover:  var(--tuse-red-500);
+  --color-primary-active: var(--tuse-red-700);
+  --color-primary-subtle: var(--tuse-red-50);
+  --color-secondary:        var(--tuse-red-900);
+  --color-secondary-hover:  var(--tuse-red-800);
+  --color-secondary-active: var(--tuse-red-950);
+  --color-accent: var(--tuse-gold-500);
+
+  --color-success: var(--tuse-green-800);  --color-success-subtle: var(--tuse-green-50);  /* 5.16:1 */
+  --color-warning: var(--tuse-gold-800);   --color-warning-subtle: var(--tuse-gold-50);   /* 5.22:1 */
+  --color-error:   var(--tuse-red-700);    --color-error-subtle:   var(--tuse-red-50);    /* 6.30:1 */
+  --color-info:    var(--tuse-steel-700);  --color-info-subtle:    var(--tuse-steel-50);  /* 8.26:1 */
+
+  --color-border:             rgba(22,19,15,0.14);
+  --color-border-strong:      var(--tuse-neutral-300);
+  --color-border-interactive: var(--tuse-neutral-900);
+  --color-divider:            rgba(22,19,15,0.14);
+  --color-focus-ring:         var(--tuse-red-600);
+  --color-focus-halo:         rgba(92,4,8,0.12);
+  --color-disabled-surface:   var(--tuse-neutral-100);
+  --color-disabled-border:    var(--tuse-neutral-200);
+
+  /* Sprint 1A — three semantics the migration proved were missing.
+     Evidence is the usage count in the production stylesheets. */
+
+  /* Verification mark. Distinct from --color-success: success is a TEXT
+     colour corrected to 5.16:1; this is the brand's badge green, which
+     appears as an icon/accent and is never set as small type. (8 uses) */
+  --color-verified: var(--tuse-green-500);
+
+  /* Hairline on a dark band inside the light theme — the hero, artisan
+     and footer surfaces. Not the same as --color-border. (27 uses) */
+  --color-border-on-inverse: rgba(255,255,255,0.16);
+
+  /* Brand accent on those same dark bands. Signal red is too deep to read
+     on night, so the ramp steps up to ember. (9 uses) */
+  --color-accent-on-inverse: var(--tuse-red-500);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   SEMANTIC — DARK
+   Not an inversion. This is the night/oxblood band the brand already
+   owns, promoted to a full surface family.
+   ═══════════════════════════════════════════════════════════════════ */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --color-background:       var(--tuse-red-1000);
+  --color-surface:          #341014;
+  --color-surface-recessed: #210103;
+  --color-surface-elevated: #3E1519;
+  --color-surface-inverse:  var(--tuse-neutral-25);
+  --color-card:             rgba(255,255,255,0.04);
+  --color-overlay:          rgba(12,10,8,0.72);
+  --color-scrim:            rgba(12,10,8,0.4);
+
+  --text-heading:  var(--tuse-neutral-0);
+  --text-body:     rgba(255,255,255,0.72);
+  --text-muted:    rgba(255,255,255,0.58);
+  --text-disabled: rgba(255,255,255,0.32);
+  --text-on-primary: var(--tuse-neutral-0);
+  --text-on-inverse: var(--tuse-neutral-900);
+  --text-link:       var(--tuse-red-300);
+  --text-accent:     var(--tuse-red-500);   /* ember — 5.34:1 on night */
+  --text-link-hover: var(--tuse-red-200);
+
+  --color-primary:        var(--tuse-red-600);
+  --color-primary-hover:  var(--tuse-red-500);
+  --color-primary-active: var(--tuse-red-700);
+  --color-primary-subtle: rgba(231,0,11,0.16);
+  --color-secondary:        var(--tuse-neutral-0);
+  --color-secondary-hover:  var(--tuse-neutral-25);
+  --color-secondary-active: var(--tuse-neutral-100);
+  --color-accent: var(--tuse-gold-300);
+
+  --color-success: var(--tuse-green-300);  --color-success-subtle: rgba(46,189,107,0.16);
+  --color-warning: var(--tuse-gold-300);   --color-warning-subtle: rgba(216,162,74,0.16);
+  --color-error:   var(--tuse-red-400);    --color-error-subtle:   rgba(255,90,82,0.16);
+  --color-info:    var(--tuse-steel-300);  --color-info-subtle:    rgba(31,111,139,0.2);
+
+  --color-border:             rgba(255,255,255,0.16);
+  --color-border-strong:      rgba(255,255,255,0.32);
+  --color-border-interactive: var(--tuse-neutral-0);
+  --color-divider:            rgba(255,255,255,0.16);
+  --color-focus-ring:         var(--tuse-neutral-0);
+  --color-focus-halo:         rgba(255,255,255,0.24);
+  --color-disabled-surface:   rgba(255,255,255,0.06);
+  --color-disabled-border:    rgba(255,255,255,0.12);
+  --color-verified: var(--tuse-green-300);
+  --color-border-on-inverse: rgba(22,19,15,0.14);
+  --color-accent-on-inverse: var(--tuse-red-600);
+
+  /* Elevation on dark grounds relies on surface lightness, not shadow */
+  --shadow-level1: 0 10px 26px -18px rgba(0,0,0,0.7);
+  --shadow-level2: 0 24px 48px -28px rgba(0,0,0,0.75);
+  --shadow-level3: 0 30px 70px -40px rgba(0,0,0,0.8);
+}
+
+/* System preference, only when no explicit theme is set */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+    color-scheme: dark;
+    --color-background: var(--tuse-red-1000);
+    --color-surface: #341014;
+    --color-surface-recessed: #210103;
+    --color-surface-elevated: #3E1519;
+    --color-surface-inverse: var(--tuse-neutral-25);
+    --color-card: rgba(255,255,255,0.04);
+    --color-overlay: rgba(12,10,8,0.72);
+    --color-scrim: rgba(12,10,8,0.4);
+    --text-heading: var(--tuse-neutral-0);
+    --text-body: rgba(255,255,255,0.72);
+    --text-muted: rgba(255,255,255,0.58);
+    --text-disabled: rgba(255,255,255,0.32);
+    --text-on-inverse: var(--tuse-neutral-900);
+    --text-link: var(--tuse-red-300);
+    --text-accent: var(--tuse-red-500);   /* ember — 5.34:1 on night */
+    --text-link-hover: var(--tuse-red-200);
+    --color-primary-subtle: rgba(231,0,11,0.16);
+    --color-secondary: var(--tuse-neutral-0);
+    --color-secondary-hover: var(--tuse-neutral-25);
+    --color-secondary-active: var(--tuse-neutral-100);
+    --color-accent: var(--tuse-gold-300);
+    --color-success: var(--tuse-green-300);  --color-success-subtle: rgba(46,189,107,0.16);
+    --color-warning: var(--tuse-gold-300);   --color-warning-subtle: rgba(216,162,74,0.16);
+    --color-error: var(--tuse-red-400);      --color-error-subtle: rgba(255,90,82,0.16);
+    --color-info: var(--tuse-steel-300);     --color-info-subtle: rgba(31,111,139,0.2);
+    --color-border: rgba(255,255,255,0.16);
+    --color-border-strong: rgba(255,255,255,0.32);
+    --color-border-interactive: var(--tuse-neutral-0);
+    --color-divider: rgba(255,255,255,0.16);
+    --color-focus-ring: var(--tuse-neutral-0);
+    --color-focus-halo: rgba(255,255,255,0.24);
+    --color-disabled-surface: rgba(255,255,255,0.06);
+    --color-disabled-border: rgba(255,255,255,0.12);
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   COMPONENT TOKENS
+   ═══════════════════════════════════════════════════════════════════ */
+:root {
+  --btn-height-sm: 40px; --btn-height-md: 48px; --btn-height-lg: 56px;
+  --btn-padding-x: var(--space-24); --btn-gap: var(--space-8);
+  --btn-radius: var(--radius-xs); --btn-border-width: var(--border-default);
+  --btn-press-scale: 0.97; --btn-hover-lift: -2px;
+
+  --input-height: 48px; --input-padding-x: var(--space-12); --input-padding-y: 0.8125rem;
+  --input-radius: var(--radius-xs); --input-border-width: var(--border-default);
+  --input-textarea-min-height: 150px;
+
+  --card-padding: clamp(1.375rem, 2vw, 1.875rem);
+  --card-radius: var(--radius-xs);
+  --card-media-ratio: 16 / 10;
+  --card-hover-lift: -4px;
+
+  --modal-radius: var(--radius-lg); --modal-padding: var(--space-32); --modal-max-width: 560px;
+  --sheet-radius: var(--radius-lg); --sheet-padding: var(--space-24);
+  --sheet-handle-width: 48px; --sheet-handle-height: 4px;
+
+  --badge-height: 24px; --badge-padding-x: var(--space-8); --badge-radius: var(--radius-xs);
+  --chip-height: 32px;  --chip-padding-x: var(--space-12);  --chip-radius: var(--radius-full);
+  --tag-height: 28px;   --tag-padding-x: var(--space-8);    --tag-radius: var(--radius-xs);
+
+  --avatar-xs: 24px; --avatar-sm: 32px; --avatar-md: 44px; --avatar-lg: 64px;
+
+  --tab-height: 48px; --tab-indicator-height: 2px; --tab-gap: var(--space-24);
+  --accordion-header-padding-y: 1.125rem;
+  --table-row-height: 56px; --table-header-height: 48px; --table-cell-padding-x: var(--space-16);
+  --progress-track-height: 2px;
+
+  --toast-radius: var(--radius-xs); --toast-padding: var(--space-16); --toast-max-width: 420px;
+  --tooltip-radius: var(--radius-sm); --tooltip-padding-x: var(--space-8);
+  --tooltip-padding-y: var(--space-4); --tooltip-max-width: 260px;
+  --alert-radius: var(--radius-xs); --alert-padding: var(--space-16); --alert-accent-width: 2px;
+
+  --dropdown-radius: var(--radius-xs); --dropdown-padding-y: var(--space-8); --dropdown-item-height: 44px;
+  --nav-gap: var(--space-32); --nav-blur: 10px;
+  --search-height: 56px; --search-radius: var(--radius-xs);
+  --empty-padding: var(--space-48); --empty-max-width: 44ch;
+  --status-dot-size: 8px; --status-pulse-duration: 2s;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   TYPOGRAPHY UTILITIES — the canonical type ramp
+   ═══════════════════════════════════════════════════════════════════ */
+.ts-display-xl { font-family: var(--font-display); font-weight: var(--weight-medium); font-size: var(--size-display-xl); line-height: var(--leading-display-tight); letter-spacing: var(--tracking-display-xl); }
+.ts-display-lg { font-family: var(--font-display); font-weight: var(--weight-regular); font-size: var(--size-display-lg); line-height: var(--leading-display); letter-spacing: var(--tracking-display); }
+.ts-display-md { font-family: var(--font-display); font-weight: var(--weight-regular); font-size: var(--size-display-md); line-height: var(--leading-heading); letter-spacing: var(--tracking-heading); }
+.ts-h1 { font-family: var(--font-display); font-weight: var(--weight-regular); font-size: var(--size-display-lg); line-height: var(--leading-display); letter-spacing: var(--tracking-display); }
+.ts-h2 { font-family: var(--font-display); font-weight: var(--weight-regular); font-size: var(--size-display-md); line-height: var(--leading-heading); letter-spacing: var(--tracking-heading); }
+.ts-h3 { font-family: var(--font-display); font-weight: var(--weight-medium); font-size: var(--size-h3); line-height: var(--leading-subheading); letter-spacing: var(--tracking-subheading); }
+.ts-h4 { font-family: var(--font-display); font-weight: var(--weight-medium); font-size: var(--size-h4); line-height: var(--leading-subheading); letter-spacing: var(--tracking-subheading); }
+.ts-h5 { font-family: var(--font-display); font-weight: var(--weight-medium); font-size: var(--size-h5); line-height: var(--leading-snug); letter-spacing: var(--tracking-subheading); }
+.ts-h6 { font-family: var(--font-display); font-weight: var(--weight-medium); font-size: var(--size-h6); line-height: var(--leading-snug); letter-spacing: var(--tracking-subheading); }
+.ts-body-lg { font-family: var(--font-body); font-size: var(--size-body-lg); line-height: var(--leading-relaxed); max-width: var(--measure-body); }
+.ts-body    { font-family: var(--font-body); font-size: var(--size-body); line-height: var(--leading-body); max-width: var(--measure-prose); }
+.ts-body-sm { font-family: var(--font-body); font-size: var(--size-body-sm); line-height: var(--leading-body); }
+.ts-caption { font-family: var(--font-body); font-size: var(--size-caption); line-height: var(--leading-control); color: var(--text-muted); }
+.ts-label   { font-family: var(--font-body); font-weight: var(--weight-semibold); font-size: var(--size-label); line-height: var(--leading-snug); letter-spacing: var(--tracking-eyebrow); text-transform: uppercase; }
+.ts-label-sm{ font-family: var(--font-body); font-weight: var(--weight-semibold); font-size: var(--size-label-sm); line-height: var(--leading-snug); letter-spacing: var(--tracking-eyebrow); text-transform: uppercase; }
+.ts-button  { font-family: var(--font-body); font-weight: var(--weight-semibold); font-size: var(--size-body-sm); line-height: 1; letter-spacing: var(--tracking-wide); }
+.ts-nav     { font-family: var(--font-body); font-weight: var(--weight-medium); font-size: var(--size-body-sm); line-height: 1; }
+.ts-input   { font-family: var(--font-body); font-size: var(--size-input); line-height: var(--leading-control); }
+.ts-helper  { font-family: var(--font-body); font-size: var(--size-caption); line-height: var(--leading-control); color: var(--text-muted); }
+.ts-error   { font-family: var(--font-body); font-weight: var(--weight-medium); font-size: var(--size-caption); line-height: var(--leading-control); color: var(--color-error); }
+.ts-numeric { font-family: var(--font-display); font-weight: var(--weight-medium); font-size: var(--size-h4); line-height: 1.1; letter-spacing: var(--tracking-subheading); font-variant-numeric: tabular-nums; }
+
+/* ═══════════════════════════════════════════════════════════════════
+   ACCESSIBILITY BASELINE — inherit this in every product
+   ═══════════════════════════════════════════════════════════════════ */
+:where(:focus-visible) {
+  outline: var(--border-focus) solid var(--color-focus-ring);
+  outline-offset: 3px;
+  border-radius: var(--radius-xs);
+}
+
+:where(button, a) { touch-action: manipulation; }
+
+/* Touch target is a COMPONENT responsibility, not a global one.
+   A blanket `min-height: var(--touch-target)` on :where(a, button, …)
+   was removed in Sprint 1A: it inflated every inline text link — footer
+   links went 39px → 48px — which is a layout change, not an a11y win.
+   Controls get their height from --btn-height-md, --input-height,
+   --tab-height and the component specs. Verify targets per component. */
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@media (prefers-contrast: more) {
+  :root {
+    --text-body: var(--tuse-neutral-900);
+    --text-muted: var(--tuse-neutral-700);
+    --color-border: var(--tuse-neutral-600);
+  }
+}

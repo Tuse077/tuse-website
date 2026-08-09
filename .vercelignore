@@ -1,0 +1,33 @@
+.env
+.env.*
+.vercel
+.gitignore
+.vercelignore
+.claude
+
+# internal design system — not part of the public marketing site
+design-system
+
+# source images — cropped/renamed versions live in assets/
+image.png
+image artisan.png
+client new image.png
+artisan image new.png
+
+# the old wide strip: no longer used on the site, but it is the only remaining
+# copy of the other artisan screens, so keep it locally and just don't ship it
+assets/app-artisan.png
+
+# category photos: reverted to the line illustrations, so neither the originals
+# nor the crops ship. Kept on disk in case they are wanted again.
+baeber category pic.jpg
+hairdresser.jpg.jpg
+make up artist.jpg
+make up artist.avif
+chef.jpg
+plumber.jpg
+assets/cat-barbing.jpg
+assets/cat-hairdressing.jpg
+assets/cat-makeup.jpg
+assets/cat-chef.jpg
+assets/cat-plumbing.jpg

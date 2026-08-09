@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "tuse-site",
+      "runtimeExecutable": "vercel",
+      "runtimeArgs": ["dev", "--listen", "4321", "--yes"],
+      "port": 4321
+    }
+  ]
+}

@@ -1,0 +1,472 @@
+{
+  "$schema": "https://tr.designtokens.org/format/",
+  "$description": "TUȘE Design System — Foundation v1.0. Extracted from the tuse.ng marketing site, not invented. Primitive tiers hold raw values; semantic tiers hold meaning; component tiers hold application. Products consume semantic and component tokens only.",
+
+  "color": {
+    "$type": "color",
+
+    "neutral": {
+      "$description": "The Ink ramp. Warm-shifted greys derived from ink #16130F and chalk #FBFAF8. Never use pure #000.",
+      "0":    { "$value": "#FFFFFF" },
+      "25":   { "$value": "#FBFAF8", "$description": "chalk — the canonical page background" },
+      "50":   { "$value": "#F3F1ED", "$description": "chalk-2 — recessed surface" },
+      "100":  { "$value": "#E9E6E0" },
+      "200":  { "$value": "#E2DED6", "$description": "stone" },
+      "300":  { "$value": "#CFC9BF" },
+      "400":  { "$value": "#A9A296" },
+      "500":  { "$value": "#7D766B" },
+      "600":  { "$value": "#5A544B" },
+      "700":  { "$value": "#3D3830" },
+      "800":  { "$value": "#272219" },
+      "900":  { "$value": "#16130F", "$description": "ink — the canonical text colour" },
+      "950":  { "$value": "#0C0A08" }
+    },
+
+    "red": {
+      "$description": "Signal ramp. 600 is the action red; 900–1000 are the oxblood/night brand grounds.",
+      "50":   { "$value": "#FFF1F1" },
+      "100":  { "$value": "#FFDCDC" },
+      "200":  { "$value": "#FFB8B8" },
+      "300":  { "$value": "#FF8A87" },
+      "400":  { "$value": "#FF5A52" },
+      "500":  { "$value": "#FF3B30", "$description": "ember" },
+      "600":  { "$value": "#E7000B", "$description": "signal — primary action" },
+      "700":  { "$value": "#BE0009" },
+      "800":  { "$value": "#8E0208" },
+      "900":  { "$value": "#5C0408", "$description": "oxblood" },
+      "950":  { "$value": "#3A0205", "$description": "oxblood-deep" },
+      "1000": { "$value": "#2B0103", "$description": "night — deepest brand ground" }
+    },
+
+    "green": {
+      "$description": "Verified ramp, anchored on the existing verification badge green.",
+      "50":  { "$value": "#EAF9F0" },
+      "100": { "$value": "#C9F0DA" },
+      "300": { "$value": "#6FD79B" },
+      "500": { "$value": "#2EBD6B", "$description": "verified — badge/icon use, 2.2:1 on chalk so never for text" },
+      "700": { "$value": "#1B8B4C", "$description": "4.16:1 — large text and icons only" },
+      "800": { "$value": "#177A43", "$description": "5.16:1 — the text-safe green" },
+      "900": { "$value": "#0E4F2B" }
+    },
+
+    "gold": {
+      "$description": "Accent ramp, anchored on the existing gold used in the artisan band gradient.",
+      "50":  { "$value": "#FBF4E7" },
+      "100": { "$value": "#F4E3C2" },
+      "300": { "$value": "#E6C486" },
+      "500": { "$value": "#D8A24A", "$description": "gold — the accent, decorative use" },
+      "700": { "$value": "#A97A2F", "$description": "3.65:1 — large text and icons only" },
+      "800": { "$value": "#8A6224", "$description": "5.22:1 — the text-safe gold" },
+      "900": { "$value": "#6B4C1B" }
+    },
+
+    "steel": {
+      "$description": "The one hue added to the extracted palette, because informational states need a channel that is not red, green or gold. Deliberately low-chroma so it never competes with Signal.",
+      "50":  { "$value": "#EDF4F7" },
+      "100": { "$value": "#CFE2EA" },
+      "300": { "$value": "#7FB0C4" },
+      "500": { "$value": "#1F6F8B" },
+      "700": { "$value": "#155268" },
+      "900": { "$value": "#0C3140" }
+    },
+
+    "alpha": {
+      "$description": "Translucent overlays. inkA sits on light grounds, lightA on dark grounds.",
+      "ink-64":   { "$value": "rgba(22,19,15,0.64)", "$description": "body text on light — 5.49:1, passes AA" },
+      "ink-60":   { "$value": "rgba(22,19,15,0.60)", "$description": "muted text on light — 4.79:1, passes AA. Corrects the site's existing 52%, which measured 3.67:1 and failed." },
+      "ink-52":   { "$value": "rgba(22,19,15,0.52)", "$description": "DEPRECATED for text (3.67:1, fails AA). Decorative use only." },
+      "ink-14":   { "$value": "rgba(22,19,15,0.14)", "$description": "hairline on light" },
+      "ink-08":   { "$value": "rgba(22,19,15,0.08)" },
+      "light-72": { "$value": "rgba(255,255,255,0.72)", "$description": "body text on dark" },
+      "light-58": { "$value": "rgba(255,255,255,0.58)", "$description": "muted text on dark" },
+      "light-16": { "$value": "rgba(255,255,255,0.16)", "$description": "hairline on dark" },
+      "light-06": { "$value": "rgba(255,255,255,0.06)" }
+    }
+  },
+
+  "semantic": {
+    "$description": "What products consume. Every value here resolves per theme; never reference the primitive ramps directly in product code.",
+    "light": {
+      "$type": "color",
+      "background":        { "$value": "{color.neutral.25}" },
+      "surface":           { "$value": "{color.neutral.0}" },
+      "surface-recessed":  { "$value": "{color.neutral.50}" },
+      "surface-elevated":  { "$value": "{color.neutral.0}" },
+      "surface-inverse":   { "$value": "{color.red.1000}" },
+      "card":              { "$value": "{color.neutral.25}" },
+      "overlay":           { "$value": "rgba(22,19,15,0.58)" },
+      "scrim":             { "$value": "rgba(22,19,15,0.28)" },
+
+      "text-heading":      { "$value": "{color.neutral.900}" },
+      "text-body":         { "$value": "{color.alpha.ink-64}" },
+      "text-muted":        { "$value": "{color.alpha.ink-60}" },
+      "text-disabled":     { "$value": "{color.neutral.400}" },
+      "text-on-primary":   { "$value": "{color.neutral.0}" },
+      "text-on-inverse":   { "$value": "{color.neutral.0}" },
+      "text-link":         { "$value": "{color.red.900}" },
+      "text-link-hover":   { "$value": "{color.red.600}" },
+
+      "primary":           { "$value": "{color.red.600}" },
+      "primary-hover":     { "$value": "{color.red.500}" },
+      "primary-active":    { "$value": "{color.red.700}" },
+      "primary-subtle":    { "$value": "{color.red.50}" },
+      "secondary":         { "$value": "{color.red.900}" },
+      "secondary-hover":   { "$value": "{color.red.800}" },
+      "secondary-active":  { "$value": "{color.red.950}" },
+      "accent":            { "$value": "{color.gold.500}" },
+
+      "success":           { "$value": "{color.green.800}" },
+      "success-subtle":    { "$value": "{color.green.50}" },
+      "warning":           { "$value": "{color.gold.800}" },
+      "warning-subtle":    { "$value": "{color.gold.50}" },
+      "error":             { "$value": "{color.red.700}", "$description": "One step deeper than primary so a destructive state is never mistaken for a call to action. See README: The Red Problem." },
+      "error-subtle":      { "$value": "{color.red.50}" },
+      "info":              { "$value": "{color.steel.700}" },
+      "info-subtle":       { "$value": "{color.steel.50}" },
+
+      "border":            { "$value": "{color.alpha.ink-14}" },
+      "border-strong":     { "$value": "{color.neutral.300}" },
+      "border-interactive":{ "$value": "{color.neutral.900}" },
+      "divider":           { "$value": "{color.alpha.ink-14}" },
+      "focus-ring":        { "$value": "{color.red.600}" },
+      "focus-halo":        { "$value": "rgba(92,4,8,0.12)" },
+      "disabled-surface":  { "$value": "{color.neutral.100}" },
+      "disabled-border":   { "$value": "{color.neutral.200}" }
+    },
+
+    "dark": {
+      "$type": "color",
+      "$description": "Not an inversion. The dark theme is the existing night/oxblood band promoted to a full surface family, which is why it already feels native.",
+      "background":        { "$value": "{color.red.1000}" },
+      "surface":           { "$value": "#341014" },
+      "surface-recessed":  { "$value": "#210103" },
+      "surface-elevated":  { "$value": "#3E1519" },
+      "surface-inverse":   { "$value": "{color.neutral.25}" },
+      "card":              { "$value": "rgba(255,255,255,0.04)" },
+      "overlay":           { "$value": "rgba(12,10,8,0.72)" },
+      "scrim":             { "$value": "rgba(12,10,8,0.4)" },
+
+      "text-heading":      { "$value": "{color.neutral.0}" },
+      "text-body":         { "$value": "{color.alpha.light-72}" },
+      "text-muted":        { "$value": "{color.alpha.light-58}" },
+      "text-disabled":     { "$value": "rgba(255,255,255,0.32)" },
+      "text-on-primary":   { "$value": "{color.neutral.0}" },
+      "text-on-inverse":   { "$value": "{color.neutral.900}" },
+      "text-link":         { "$value": "{color.red.300}" },
+      "text-link-hover":   { "$value": "{color.red.200}" },
+
+      "primary":           { "$value": "{color.red.600}" },
+      "primary-hover":     { "$value": "{color.red.500}" },
+      "primary-active":    { "$value": "{color.red.700}" },
+      "primary-subtle":    { "$value": "rgba(231,0,11,0.16)" },
+      "secondary":         { "$value": "{color.neutral.0}" },
+      "secondary-hover":   { "$value": "{color.neutral.25}" },
+      "secondary-active":  { "$value": "{color.neutral.100}" },
+      "accent":            { "$value": "{color.gold.300}" },
+
+      "success":           { "$value": "{color.green.300}" },
+      "success-subtle":    { "$value": "rgba(46,189,107,0.16)" },
+      "warning":           { "$value": "{color.gold.300}" },
+      "warning-subtle":    { "$value": "rgba(216,162,74,0.16)" },
+      "error":             { "$value": "{color.red.400}" },
+      "error-subtle":      { "$value": "rgba(255,90,82,0.16)" },
+      "info":              { "$value": "{color.steel.300}" },
+      "info-subtle":       { "$value": "rgba(31,111,139,0.2)" },
+
+      "border":            { "$value": "{color.alpha.light-16}" },
+      "border-strong":     { "$value": "rgba(255,255,255,0.32)" },
+      "border-interactive":{ "$value": "{color.neutral.0}" },
+      "divider":           { "$value": "{color.alpha.light-16}" },
+      "focus-ring":        { "$value": "{color.neutral.0}" },
+      "focus-halo":        { "$value": "rgba(255,255,255,0.24)" },
+      "disabled-surface":  { "$value": "rgba(255,255,255,0.06)" },
+      "disabled-border":   { "$value": "rgba(255,255,255,0.12)" }
+    }
+  },
+
+  "font": {
+    "family": {
+      "$type": "fontFamily",
+      "display": { "$value": ["Newsreader", "Noto Serif", "Georgia", "serif"], "$description": "Editorial serif. Every heading, every price, every number that matters." },
+      "body":    { "$value": ["Inter", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "sans-serif"], "$description": "Interface sans. Body copy, labels, controls." },
+      "mono":    { "$value": ["ui-monospace", "SFMono-Regular", "Menlo", "Consolas", "monospace"], "$description": "Reference numbers, booking IDs, ledger rows." }
+    },
+    "weight": {
+      "$type": "fontWeight",
+      "regular":  { "$value": 400 },
+      "medium":   { "$value": 500 },
+      "semibold": { "$value": 600 },
+      "bold":     { "$value": 700 }
+    },
+    "tracking": {
+      "$type": "dimension",
+      "$description": "Tightens as type grows, opens as type shrinks. The .18em label tracking is the single most recognisable Tușe typographic signature.",
+      "display-xl": { "$value": "-0.03em" },
+      "display":    { "$value": "-0.028em" },
+      "heading":    { "$value": "-0.02em" },
+      "subheading": { "$value": "-0.01em" },
+      "body":       { "$value": "0" },
+      "wide":       { "$value": "0.02em" },
+      "label":      { "$value": "0.14em" },
+      "eyebrow":    { "$value": "0.18em" },
+      "eyebrow-xl": { "$value": "0.2em" }
+    },
+    "leading": {
+      "$type": "number",
+      "display-tight": { "$value": 0.97 },
+      "display":       { "$value": 1.04 },
+      "heading":       { "$value": 1.12 },
+      "subheading":    { "$value": 1.16 },
+      "snug":          { "$value": 1.3 },
+      "control":       { "$value": 1.5 },
+      "body":          { "$value": 1.62 },
+      "relaxed":       { "$value": 1.66 },
+      "address":       { "$value": 1.9 }
+    },
+    "measure": {
+      "$type": "dimension",
+      "$description": "Maximum readable line length. Never let body copy run past these.",
+      "tight":  { "$value": "44ch" },
+      "body":   { "$value": "60ch" },
+      "prose":  { "$value": "70ch" },
+      "display":{ "$value": "20ch" }
+    }
+  },
+
+  "typography": {
+    "$type": "typography",
+    "$description": "Fluid steps use clamp(min, preferred, max) so mobile is designed, not compressed.",
+    "display-xl":  { "$value": { "fontFamily": "{font.family.display}", "fontWeight": "{font.weight.medium}",   "fontSize": "clamp(2.5rem, 1rem + 6.4vw, 6.5rem)",         "lineHeight": "{font.leading.display-tight}", "letterSpacing": "{font.tracking.display-xl}" } },
+    "display-lg":  { "$value": { "fontFamily": "{font.family.display}", "fontWeight": "{font.weight.regular}",  "fontSize": "clamp(2rem, 1.05rem + 4.2vw, 4.375rem)",      "lineHeight": "{font.leading.display}",       "letterSpacing": "{font.tracking.display}" } },
+    "display-md":  { "$value": { "fontFamily": "{font.family.display}", "fontWeight": "{font.weight.regular}",  "fontSize": "clamp(1.625rem, 1.15rem + 2.1vw, 2.625rem)", "lineHeight": "{font.leading.heading}",       "letterSpacing": "{font.tracking.heading}" } },
+    "h1":          { "$value": { "fontFamily": "{font.family.display}", "fontWeight": "{font.weight.regular}",  "fontSize": "clamp(2rem, 1.05rem + 4.2vw, 4.375rem)",      "lineHeight": "{font.leading.display}",       "letterSpacing": "{font.tracking.display}" } },
+    "h2":          { "$value": { "fontFamily": "{font.family.display}", "fontWeight": "{font.weight.regular}",  "fontSize": "clamp(1.625rem, 1.15rem + 2.1vw, 2.625rem)", "lineHeight": "{font.leading.heading}",       "letterSpacing": "{font.tracking.heading}" } },
+    "h3":          { "$value": { "fontFamily": "{font.family.display}", "fontWeight": "{font.weight.medium}",   "fontSize": "clamp(1.1875rem, 1.05rem + 0.6vw, 1.5rem)",  "lineHeight": "{font.leading.subheading}",    "letterSpacing": "{font.tracking.subheading}" } },
+    "h4":          { "$value": { "fontFamily": "{font.family.display}", "fontWeight": "{font.weight.medium}",   "fontSize": "1.4375rem", "lineHeight": "{font.leading.subheading}", "letterSpacing": "{font.tracking.subheading}" } },
+    "h5":          { "$value": { "fontFamily": "{font.family.display}", "fontWeight": "{font.weight.medium}",   "fontSize": "1.125rem",  "lineHeight": "{font.leading.snug}",       "letterSpacing": "{font.tracking.subheading}" } },
+    "h6":          { "$value": { "fontFamily": "{font.family.display}", "fontWeight": "{font.weight.medium}",   "fontSize": "1.0625rem", "lineHeight": "{font.leading.snug}",       "letterSpacing": "{font.tracking.subheading}" } },
+    "body-lg":     { "$value": { "fontFamily": "{font.family.body}",    "fontWeight": "{font.weight.regular}",  "fontSize": "clamp(1rem, 0.96rem + 0.18vw, 1.1875rem)",   "lineHeight": "{font.leading.relaxed}",       "letterSpacing": "{font.tracking.body}" } },
+    "body":        { "$value": { "fontFamily": "{font.family.body}",    "fontWeight": "{font.weight.regular}",  "fontSize": "1rem",      "lineHeight": "{font.leading.body}",       "letterSpacing": "{font.tracking.body}" } },
+    "body-sm":     { "$value": { "fontFamily": "{font.family.body}",    "fontWeight": "{font.weight.regular}",  "fontSize": "0.875rem",  "lineHeight": "{font.leading.body}",       "letterSpacing": "{font.tracking.body}" } },
+    "caption":     { "$value": { "fontFamily": "{font.family.body}",    "fontWeight": "{font.weight.regular}",  "fontSize": "0.75rem",   "lineHeight": "{font.leading.control}",    "letterSpacing": "{font.tracking.body}" } },
+    "label":       { "$value": { "fontFamily": "{font.family.body}",    "fontWeight": "{font.weight.semibold}", "fontSize": "0.6875rem", "lineHeight": "{font.leading.snug}",       "letterSpacing": "{font.tracking.eyebrow}", "textTransform": "uppercase" } },
+    "label-sm":    { "$value": { "fontFamily": "{font.family.body}",    "fontWeight": "{font.weight.semibold}", "fontSize": "0.625rem",  "lineHeight": "{font.leading.snug}",       "letterSpacing": "{font.tracking.eyebrow}", "textTransform": "uppercase" } },
+    "button":      { "$value": { "fontFamily": "{font.family.body}",    "fontWeight": "{font.weight.semibold}", "fontSize": "0.875rem",  "lineHeight": 1,                            "letterSpacing": "{font.tracking.wide}" } },
+    "navigation":  { "$value": { "fontFamily": "{font.family.body}",    "fontWeight": "{font.weight.medium}",   "fontSize": "0.875rem",  "lineHeight": 1,                            "letterSpacing": "{font.tracking.body}" } },
+    "input":       { "$value": { "fontFamily": "{font.family.body}",    "fontWeight": "{font.weight.regular}",  "fontSize": "0.9375rem", "lineHeight": "{font.leading.control}",    "letterSpacing": "{font.tracking.body}" } },
+    "helper":      { "$value": { "fontFamily": "{font.family.body}",    "fontWeight": "{font.weight.regular}",  "fontSize": "0.75rem",   "lineHeight": "{font.leading.control}",    "letterSpacing": "{font.tracking.body}" } },
+    "error":       { "$value": { "fontFamily": "{font.family.body}",    "fontWeight": "{font.weight.medium}",   "fontSize": "0.75rem",   "lineHeight": "{font.leading.control}",    "letterSpacing": "{font.tracking.body}" } },
+    "numeric":     { "$value": { "fontFamily": "{font.family.display}", "fontWeight": "{font.weight.medium}",   "fontSize": "1.4375rem", "lineHeight": 1.1,                          "letterSpacing": "{font.tracking.subheading}", "fontVariantNumeric": "tabular-nums" }, "$description": "Money, balances, counts. Serif numerals are a Tușe signature — see the wallet and dispatch screens." }
+  },
+
+  "spacing": {
+    "$type": "dimension",
+    "$description": "8-point grid. 2 and 4 exist only for optical correction inside controls, never for layout.",
+    "0":   { "$value": "0" },
+    "2":   { "$value": "0.125rem" },
+    "4":   { "$value": "0.25rem" },
+    "8":   { "$value": "0.5rem" },
+    "12":  { "$value": "0.75rem" },
+    "16":  { "$value": "1rem" },
+    "20":  { "$value": "1.25rem" },
+    "24":  { "$value": "1.5rem" },
+    "32":  { "$value": "2rem" },
+    "40":  { "$value": "2.5rem" },
+    "48":  { "$value": "3rem" },
+    "56":  { "$value": "3.5rem" },
+    "64":  { "$value": "4rem" },
+    "80":  { "$value": "5rem" },
+    "96":  { "$value": "6rem" },
+    "120": { "$value": "7.5rem" },
+    "160": { "$value": "10rem" }
+  },
+
+  "spacing-fluid": {
+    "$type": "dimension",
+    "$description": "Section rhythm. Interpolates between grid steps so vertical pacing scales with the viewport.",
+    "section":       { "$value": "clamp(3.75rem, 9vw, 10rem)" },
+    "section-tight": { "$value": "clamp(3rem, 6vw, 6rem)" },
+    "block":         { "$value": "clamp(2rem, 5vw, 3.5rem)" },
+    "gutter":        { "$value": "clamp(1.25rem, 4.6vw, 4.5rem)" }
+  },
+
+  "radius": {
+    "$type": "dimension",
+    "$description": "Tușe is a square-cornered brand. 2px is the default and carries the editorial feel; anything rounder must be justified.",
+    "none": { "$value": "0" },
+    "xs":   { "$value": "2px", "$description": "DEFAULT — buttons, cards, inputs, badges, images" },
+    "sm":   { "$value": "4px" },
+    "md":   { "$value": "6px" },
+    "lg":   { "$value": "8px", "$description": "modals, bottom sheets, large panels" },
+    "xl":   { "$value": "16px" },
+    "full": { "$value": "99px", "$description": "pills, chips, toggles" },
+    "circle": { "$value": "50%", "$description": "avatars only" }
+  },
+
+  "border": {
+    "$type": "dimension",
+    "thin":     { "$value": "1px" },
+    "default":  { "$value": "1px" },
+    "strong":   { "$value": "1.5px" },
+    "heavy":    { "$value": "2px" },
+    "focus":    { "$value": "2px" }
+  },
+
+  "shadow": {
+    "$type": "shadow",
+    "$description": "All elevation uses large blur with large NEGATIVE spread — the shadow sits under the element rather than haloing it. That restraint is why the site reads as printed rather than plastic.",
+    "level0": { "$value": "none" },
+    "level1": { "$value": "0 10px 26px -18px rgba(22,19,15,0.5)",  "$description": "hovered card, store button" },
+    "level2": { "$value": "0 24px 48px -28px rgba(22,19,15,0.3)",  "$description": "raised card" },
+    "level3": { "$value": "0 30px 70px -40px rgba(22,19,15,0.35)", "$description": "feature panel" },
+    "level4": { "$value": "0 40px 80px -30px rgba(0,0,0,0.6)",     "$description": "on dark grounds only" },
+    "floating":{ "$value": "0 12px 40px -20px rgba(0,0,0,0.6)" },
+    "dropdown":{ "$value": "0 24px 60px -40px rgba(22,19,15,0.35)" },
+    "popover": { "$value": "0 4px 12px rgba(0,0,0,0.45)" },
+    "modal":   { "$value": "0 40px 80px -30px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.08)" },
+    "focus":   { "$value": "0 0 0 3px rgba(92,4,8,0.12)" },
+    "inset-screen": { "$value": "inset 0 0 0 1px rgba(0,0,0,0.55)" }
+  },
+
+  "motion": {
+    "duration": {
+      "$type": "duration",
+      "instant":  { "$value": "80ms" },
+      "fast":     { "$value": "180ms", "$description": "button press, toggle" },
+      "normal":   { "$value": "250ms", "$description": "DEFAULT — hover, colour, border" },
+      "moderate": { "$value": "350ms", "$description": "nav state, disclosure" },
+      "slow":     { "$value": "500ms", "$description": "sheets, overlays" },
+      "very-slow":{ "$value": "900ms", "$description": "entrance choreography" }
+    },
+    "easing": {
+      "$type": "cubicBezier",
+      "standard":   { "$value": [0.22, 0.61, 0.36, 1], "$description": "DEFAULT — the Tușe curve. Fast out, long settle." },
+      "accelerate": { "$value": [0.4, 0, 1, 1] },
+      "decelerate": { "$value": [0, 0, 0.2, 1] },
+      "emphasized": { "$value": [0.2, 0, 0, 1] },
+      "spring":     { "$value": [0.34, 1.4, 0.5, 1], "$description": "One controlled overshoot. Confirmation moments only — never navigation." },
+      "linear":     { "$value": [0, 0, 1, 1], "$description": "Progress and marquee only." }
+    },
+    "stagger": {
+      "$type": "duration",
+      "tight":  { "$value": "55ms", "$description": "grid children" },
+      "default":{ "$value": "80ms" },
+      "loose":  { "$value": "140ms", "$description": "hero choreography" }
+    }
+  },
+
+  "breakpoint": {
+    "$type": "dimension",
+    "$description": "Rationalised from the nine ad-hoc widths found in the audit. Products use these five only.",
+    "xs": { "$value": "480px" },
+    "sm": { "$value": "640px" },
+    "md": { "$value": "900px", "$description": "The load-bearing one: navigation, two-column layouts and the artisan grid all pivot here." },
+    "lg": { "$value": "1080px" },
+    "xl": { "$value": "1400px" }
+  },
+
+  "layout": {
+    "$type": "dimension",
+    "container-max":   { "$value": "1400px" },
+    "content-max":     { "$value": "70ch" },
+    "nav-height":      { "$value": "60px" },
+    "nav-height-md":   { "$value": "76px" },
+    "columns-mobile":  { "$value": 4 },
+    "columns-tablet":  { "$value": 8 },
+    "columns-desktop": { "$value": 12 },
+    "touch-target":    { "$value": "48px", "$description": "Minimum interactive size. Non-negotiable." }
+  },
+
+  "icon": {
+    "$description": "One visual language: outlined, round joins, 24px grid. Filled is reserved for active/selected states and rating stars.",
+    "size": {
+      "$type": "dimension",
+      "xs": { "$value": "14px" },
+      "sm": { "$value": "16px" },
+      "md": { "$value": "19px" },
+      "lg": { "$value": "22px" },
+      "xl": { "$value": "24px" },
+      "2xl":{ "$value": "32px" }
+    },
+    "stroke": {
+      "$type": "dimension",
+      "hairline": { "$value": "1.5px", "$description": "large decorative icons" },
+      "default":  { "$value": "1.7px", "$description": "DEFAULT — interface icons" },
+      "strong":   { "$value": "2px",   "$description": "small icons, inline with text" },
+      "heavy":    { "$value": "2.4px", "$description": "16px and below" }
+    },
+    "join": { "$value": "round" },
+    "cap":  { "$value": "round" }
+  },
+
+  "component": {
+    "$description": "Application tier. Reference semantic tokens only.",
+    "button": {
+      "height-sm": { "$value": "40px" }, "height-md": { "$value": "48px" }, "height-lg": { "$value": "56px" },
+      "padding-x": { "$value": "{spacing.24}" }, "gap": { "$value": "{spacing.8}" },
+      "radius": { "$value": "{radius.xs}" }, "border-width": { "$value": "{border.default}" },
+      "press-scale": { "$value": 0.97 }, "hover-lift": { "$value": "-2px" }
+    },
+    "input": {
+      "height": { "$value": "48px" }, "padding-x": { "$value": "{spacing.12}" }, "padding-y": { "$value": "0.8125rem" },
+      "radius": { "$value": "{radius.xs}" }, "border-width": { "$value": "{border.default}" },
+      "focus-halo": { "$value": "{shadow.focus}" }, "textarea-min-height": { "$value": "150px" }
+    },
+    "card": {
+      "padding": { "$value": "clamp(1.375rem, 2vw, 1.875rem)" }, "radius": { "$value": "{radius.xs}" },
+      "media-ratio": { "$value": "16 / 10" }, "hover-lift": { "$value": "-4px" }, "hover-shadow": { "$value": "{shadow.level2}" }
+    },
+    "modal":       { "radius": { "$value": "{radius.lg}" }, "padding": { "$value": "{spacing.32}" }, "shadow": { "$value": "{shadow.modal}" }, "max-width": { "$value": "560px" } },
+    "sheet":       { "radius": { "$value": "{radius.lg}" }, "padding": { "$value": "{spacing.24}" }, "handle-width": { "$value": "48px" }, "handle-height": { "$value": "4px" } },
+    "badge":       { "height": { "$value": "24px" }, "padding-x": { "$value": "{spacing.8}" }, "radius": { "$value": "{radius.xs}" }, "typography": { "$value": "{typography.label-sm}" } },
+    "chip":        { "height": { "$value": "32px" }, "padding-x": { "$value": "{spacing.12}" }, "radius": { "$value": "{radius.full}" } },
+    "tag":         { "height": { "$value": "28px" }, "padding-x": { "$value": "{spacing.8}" }, "radius": { "$value": "{radius.xs}" } },
+    "avatar":      { "xs": { "$value": "24px" }, "sm": { "$value": "32px" }, "md": { "$value": "44px" }, "lg": { "$value": "64px" }, "radius": { "$value": "{radius.circle}" } },
+    "tab":         { "height": { "$value": "48px" }, "indicator-height": { "$value": "2px" }, "gap": { "$value": "{spacing.24}" } },
+    "accordion":   { "header-padding-y": { "$value": "1.125rem" }, "divider": { "$value": "{border.thin}" } },
+    "table":       { "row-height": { "$value": "56px" }, "header-height": { "$value": "48px" }, "cell-padding-x": { "$value": "{spacing.16}" } },
+    "progress":    { "track-height": { "$value": "2px" }, "radius": { "$value": "{radius.full}" } },
+    "toast":       { "radius": { "$value": "{radius.xs}" }, "padding": { "$value": "{spacing.16}" }, "shadow": { "$value": "{shadow.floating}" }, "max-width": { "$value": "420px" } },
+    "tooltip":     { "radius": { "$value": "{radius.sm}" }, "padding-x": { "$value": "{spacing.8}" }, "padding-y": { "$value": "{spacing.4}" }, "shadow": { "$value": "{shadow.popover}" }, "max-width": { "$value": "260px" } },
+    "alert":       { "radius": { "$value": "{radius.xs}" }, "padding": { "$value": "{spacing.16}" }, "accent-width": { "$value": "2px" } },
+    "dropdown":    { "radius": { "$value": "{radius.xs}" }, "padding-y": { "$value": "{spacing.8}" }, "item-height": { "$value": "44px" }, "shadow": { "$value": "{shadow.dropdown}" } },
+    "navigation":  { "height": { "$value": "{layout.nav-height}" }, "height-md": { "$value": "{layout.nav-height-md}" }, "gap": { "$value": "{spacing.32}" }, "blur": { "$value": "10px" } },
+    "search":      { "height": { "$value": "56px" }, "radius": { "$value": "{radius.xs}" }, "icon-size": { "$value": "{icon.size.lg}" } },
+    "empty-state": { "padding": { "$value": "{spacing.48}" }, "icon-size": { "$value": "{icon.size.2xl}" }, "max-width": { "$value": "44ch" } },
+    "status-dot":  { "size": { "$value": "8px" }, "radius": { "$value": "{radius.circle}" }, "pulse-duration": { "$value": "2s" } }
+  },
+
+  "a11y": {
+    "contrast": {
+      "$description": "Measured, not assumed. Every semantic text token was computed against its own background; three failed AA on first pass and were corrected. See README: Measured Contrast.",
+      "body-text":  { "$value": "4.5:1", "$description": "WCAG AA floor for text under 24px" },
+      "large-text": { "$value": "3:1",   "$description": "24px+, or 18.66px+ bold" },
+      "non-text":   { "$value": "3:1",   "$description": "borders, icons, focus indicators" },
+      "measured": {
+        "light-heading": { "$value": "17.75:1" },
+        "light-body":    { "$value": "5.49:1" },
+        "light-muted":   { "$value": "4.79:1" },
+        "light-link":    { "$value": "13.64:1" },
+        "light-primary": { "$value": "4.57:1" },
+        "on-primary":    { "$value": "4.77:1", "$description": "white on signal red" },
+        "dark-heading":  { "$value": "18.95:1" },
+        "dark-body":     { "$value": "9.83:1" },
+        "dark-muted":    { "$value": "6.58:1" }
+      }
+    },
+    "focus": {
+      "width":  { "$value": "{border.focus}" },
+      "offset": { "$value": "3px" },
+      "style":  { "$value": "solid" },
+      "$description": "Visible on every interactive element. On dark grounds the ring switches to white. Never remove without an equivalent replacement."
+    },
+    "touch": {
+      "min":     { "$value": "44px", "$description": "WCAG 2.5.5 absolute floor" },
+      "default": { "$value": "48px", "$description": "Tușe standard" },
+      "spacing": { "$value": "{spacing.8}", "$description": "minimum gap between adjacent targets" }
+    },
+    "motion": {
+      "reduced": { "$value": "0.001ms", "$description": "All duration collapses under prefers-reduced-motion. Meaning must never depend on animation alone." }
+    }
+  }
+}
