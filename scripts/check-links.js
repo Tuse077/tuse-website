@@ -43,7 +43,7 @@ files.forEach((file) => {
     const href = m[1];
     totalLinks++;
     if (href.startsWith('/assets/')) continue;
-    const pathPart = href.split('#')[0];
+    const pathPart = href.split('#')[0].split('?')[0] || '/';
     if (pathPart === '') continue;
     if (!validPaths.has(pathPart)) broken.push(`${rel} -> ${href}`);
   }

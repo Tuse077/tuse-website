@@ -64,8 +64,8 @@ function extract(html, pattern) {
 
 function priorityFor(urlPath) {
   if (urlPath === '/') return '1.0';
-  if (urlPath === '/services') return '0.9';
-  if (urlPath.startsWith('/services/')) return '0.8';
+  if (urlPath === '/services' || urlPath === '/guides') return '0.9';
+  if (urlPath.startsWith('/services/') || urlPath.startsWith('/guides/')) return '0.8';
   if (urlPath === '/help' || urlPath === '/business-enquiry') return '0.8';
   if (urlPath === '/contact' || urlPath === '/about-the-app') return '0.7';
   return '0.5';
@@ -73,7 +73,7 @@ function priorityFor(urlPath) {
 
 function changefreqFor(urlPath) {
   if (urlPath === '/') return 'weekly';
-  if (urlPath.startsWith('/services')) return 'monthly';
+  if (urlPath.startsWith('/services') || urlPath.startsWith('/guides')) return 'monthly';
   if (urlPath === '/help' || urlPath === '/contact' || urlPath === '/business-enquiry' || urlPath === '/about-the-app') {
     return 'monthly';
   }

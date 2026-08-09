@@ -4,15 +4,14 @@
    Measurement ID is set there. Loaded with `defer`, and the tag
    itself is injected `async`, so this never blocks rendering.
 
-   Also fires two minimal, non-invasive conversion events that map
-   directly to the acquisition funnel — no invasive tracking, no
-   fingerprinting, no third party beyond Google's own gtag.js:
+   Conversion / funnel events (queued even when unconfigured):
 
-     app_store_click   — a store badge (App Store / Google Play) was
-                          clicked, anywhere on the site.
-     generate_lead      — a business enquiry was successfully
-                          submitted (fires once, on the thank-you page,
-                          which only loads after FormSubmit succeeds).
+     app_store_click    — store badge click (App Store / Google Play)
+     generate_lead      — business enquiry thank-you page
+     guide_view         — problem guide page load (body[data-guide])
+     guide_cta_click    — [data-evt="guide_cta"]
+     iranti_cta_click   — [data-evt="iranti_cta"]
+     service_page_click — [data-evt="service_page"]
    ═══════════════════════════════════════════════════════════════════ */
 (function () {
   var cfg = window.TUSE_ANALYTICS || {};
@@ -27,8 +26,6 @@
     if (window.console && console.info) {
       console.info('[Tuse] Analytics not configured — set GA_MEASUREMENT_ID in assets/analytics-config.js to enable.');
     }
-    // Conversion events still queue harmlessly into dataLayer even when
-    // unconfigured, so nothing needs to change once a real ID is added.
   } else {
     var s = document.createElement('script');
     s.async = true;
@@ -40,16 +37,37 @@
 
   document.addEventListener('click', function (e) {
     var link = e.target.closest && e.target.closest('a.store');
-    if (!link) return;
-    var isAppStore = /apps\.apple\.com/.test(link.href);
-    gtag('event', 'app_store_click', {
-      store: isAppStore ? 'app_store' : 'google_play',
-      link_url: link.href,
-      page_path: location.pathname,
-    });
+    if (link) {
+      var isAppStore = /apps\.apple\.com/.test(link.href);
+      gtag('event', 'app_store_click', {
+        store: isAppStore ? 'app_store' : 'google_play',
+        link_url: link.href,
+        page_path: location.pathname,
+      });
+      return;
+    }
+
+    var evtEl = e.target.closest && e.target.closest('[data-evt]');
+    if (!evtEl) return;
+    var name = evtEl.getAttribute('data-evt');
+    if (name === 'guide_cta') {
+      gtag('event', 'guide_cta_click', { page_path: location.pathname, link_url: evtEl.href || '' });
+    } else if (name === 'iranti_cta') {
+      gtag('event', 'iranti_cta_click', { page_path: location.pathname, link_url: evtEl.href || '' });
+    } else if (name === 'service_page') {
+      gtag('event', 'service_page_click', { page_path: location.pathname, link_url: evtEl.href || '' });
+    }
   }, true);
 
   if (document.body && document.body.hasAttribute('data-conversion-lead')) {
     gtag('event', 'generate_lead', { page_path: location.pathname });
+  }
+
+  if (document.body && document.body.hasAttribute('data-guide')) {
+    gtag('event', 'guide_view', {
+      page_path: location.pathname,
+      guide_slug: document.body.getAttribute('data-guide') || '',
+      guide_service: document.body.getAttribute('data-guide-service') || '',
+    });
   }
 })();

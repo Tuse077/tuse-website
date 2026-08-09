@@ -1531,6 +1531,7 @@ html.ready .chor.d5{transition-delay:.62s}
         <h5>Support</h5>
         <ul>
           <li><a href="/help">Help centre</a></li>
+          <li><a href="/guides">Problem guides</a></li>
           <li><a href="/contact">Contact us</a></li>
           <li><a href="/about-the-app">About the app</a></li>
           <li><a href="/community-guidelines">Community guidelines</a></li>
@@ -2085,6 +2086,20 @@ html.ready .chor.d5{transition-delay:.62s}
       else if(e.key === 'Escape'){ seekClose(); }
     });
     document.addEventListener('click', function(e){ if(!seek.contains(e.target)) seekClose(); });
+
+    /* Deep-link from problem guides: /?q=my+AC+is+blowing+warm+air#seek */
+    try {
+      var qParam = new URLSearchParams(location.search).get('q');
+      if (qParam && qParam.trim()) {
+        sInput.value = qParam.trim();
+        seekMatch(sInput.value);
+        if (location.hash === '#seek') {
+          seek.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          sInput.focus();
+        }
+      }
+    } catch (err) { /* older browsers without URLSearchParams - ignore */ }
+
 
     /* rotating placeholder, typed character by character */
     if(!reduce){
