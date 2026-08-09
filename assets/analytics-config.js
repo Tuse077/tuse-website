@@ -11,5 +11,5 @@
 window.TUSE_ANALYTICS = {
   // Google Analytics 4 Measurement ID, e.g. "G-ABC1234XYZ".
   // Find it in GA4: Admin → Data Streams → (your web stream) → Measurement ID.
-  GA_MEASUREMENT_ID: 'G-XXXXXXXXXX',
+  GA_MEASUREMENT_ID: 'G-4DG9E4JJMH',
 };
