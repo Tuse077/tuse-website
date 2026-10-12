@@ -68,6 +68,52 @@ for (const s of SERVICES) {
   if (!META[s.t]) throw new Error(`No slug/label mapping for service "${s.t}" — add it to META before generating, do not skip it.`);
 }
 
+/* ── 3. Related services, per service ───────────────────────────────
+   The "Other services" rail used to show the same first six entries of
+   the SERVICES array on every page, so plumbing and cleaning collected
+   dozens of internal links while fumigation and painting had one each
+   and sat unindexed. Each list below is six genuinely related trades:
+   same room, same job, or the obvious next booking. Every service must
+   appear in at least four other services' lists — checked at generate
+   time so the balance cannot silently drift. */
+const RELATED = {
+  'AC repair':          ['Electrical work', 'Appliance repair', 'Generator repair', 'Plumbing', 'Cleaning', 'Pest control'],
+  'Plumbing':           ['Electrical work', 'AC repair', 'Carpentry', 'Painting', 'Deep cleaning', 'Welding'],
+  'Barbing':            ['Hairdressing', 'Makeup', 'Nail technician', 'Tailoring', 'Chef and cooking', 'Cleaning'],
+  'Cleaning':           ['Deep cleaning', 'Fumigation', 'Pest control', 'Painting', 'Chef and cooking', 'Hairdressing'],
+  'Deep cleaning':      ['Cleaning', 'Fumigation', 'Pest control', 'Painting', 'Plumbing', 'Carpentry'],
+  'Hairdressing':       ['Barbing', 'Makeup', 'Nail technician', 'Tailoring', 'Chef and cooking', 'Cleaning'],
+  'Nail technician':    ['Hairdressing', 'Makeup', 'Barbing', 'Tailoring', 'Chef and cooking', 'Cleaning'],
+  'Makeup':             ['Hairdressing', 'Nail technician', 'Tailoring', 'Barbing', 'Chef and cooking', 'Cleaning'],
+  'Chef and cooking':   ['Cleaning', 'Deep cleaning', 'Makeup', 'Hairdressing', 'Tailoring', 'Nail technician'],
+  'Electrical work':    ['Generator repair', 'AC repair', 'Appliance repair', 'Plumbing', 'Carpentry', 'Auto care'],
+  'Appliance repair':   ['Electrical work', 'AC repair', 'Generator repair', 'Plumbing', 'Carpentry', 'Auto care'],
+  'Generator repair':   ['Electrical work', 'Appliance repair', 'AC repair', 'Auto care', 'Welding', 'Plumbing'],
+  'Carpentry':          ['Painting', 'Welding', 'Plumbing', 'Electrical work', 'Deep cleaning', 'Cleaning'],
+  'Painting':           ['Carpentry', 'Deep cleaning', 'Cleaning', 'Welding', 'Plumbing', 'Fumigation'],
+  'Welding':            ['Carpentry', 'Painting', 'Auto care', 'Generator repair', 'Electrical work', 'Plumbing'],
+  'Fumigation':         ['Pest control', 'Deep cleaning', 'Cleaning', 'Painting', 'AC repair', 'Plumbing'],
+  'Pest control':       ['Fumigation', 'Deep cleaning', 'Cleaning', 'Carpentry', 'Plumbing', 'Painting'],
+  'Tailoring':          ['Makeup', 'Hairdressing', 'Barbing', 'Nail technician', 'Chef and cooking', 'Cleaning'],
+  'Auto care':          ['Generator repair', 'Welding', 'Electrical work', 'Appliance repair', 'AC repair', 'Cleaning'],
+};
+
+{
+  const inbound = {};
+  for (const s of SERVICES) {
+    const list = RELATED[s.t];
+    if (!list || list.length !== 6) throw new Error(`RELATED["${s.t}"] must list exactly six services.`);
+    for (const t of list) {
+      if (!META[t]) throw new Error(`RELATED["${s.t}"] names unknown service "${t}".`);
+      if (t === s.t) throw new Error(`RELATED["${s.t}"] links to itself.`);
+      inbound[t] = (inbound[t] || 0) + 1;
+    }
+  }
+  for (const s of SERVICES) {
+    if ((inbound[s.t] || 0) < 4) throw new Error(`"${s.t}" is linked from only ${inbound[s.t] || 0} related lists — needs at least 4.`);
+  }
+}
+
 // Display-only: capitalises "from ₦X" to "From ₦X" when it opens a sentence
 // or stands alone as a label — matching the homepage's own card chips
 // ("From ₦5,000"). Never applied to the JSON-LD offer value.
@@ -145,7 +191,7 @@ function serviceHtml(service) {
     },
   ];
 
-  const otherServices = SERVICES.filter((s) => s.t !== service.t);
+  const otherServices = RELATED[service.t].map((t) => SERVICES.find((s) => s.t === t));
   const relatedGuides = GUIDES.filter((g) => g.serviceTitle === service.t);
 
   const guidesRail = relatedGuides.length
@@ -229,9 +275,9 @@ ${faqs.map((f, i) => `        <details${i === 0 ? ' open' : ''}>
         <p>${esc(capPrice(service.p))}</p>
       </div>${guidesRail}
       <div class="rail__row">
-        <h2>Other services</h2>
+        <h2>Related services</h2>
         <p style="margin-top:.625rem">
-${otherServices.slice(0, 6).map((s) => `          <a class="rail__link" href="/services/${META[s.t].slug}" style="margin-top:.5rem;display:block">${esc(s.t)}</a>`).join('\n')}
+${otherServices.map((s) => `          <a class="rail__link" href="/services/${META[s.t].slug}" style="margin-top:.5rem;display:block">${esc(s.t)}</a>`).join('\n')}
         </p>
         <p style="margin-top:.75rem"><a class="rail__link" href="/services">See all 19 services</a></p>
       </div>

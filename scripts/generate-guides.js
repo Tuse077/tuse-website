@@ -62,6 +62,13 @@ function guideHtml(g) {
   const canonical = `${ORIGIN}/guides/${g.slug}`;
   const related = g.relatedSlugs.map(guideBySlug).filter(Boolean);
 
+  // Three guides from other trades for the rail. Picked with a stride
+  // from this guide's own position, so the 75 cross-links spread across
+  // all 25 guides instead of piling onto whichever come first in the array.
+  const others = GUIDES.filter((x) => x.serviceTitle !== g.serviceTitle);
+  const offset = GUIDES.indexOf(g) * 3;
+  const moreGuides = [0, 1, 2].map((i) => others[(offset + i) % others.length]);
+
   const jsonLd = [
     {
       '@context': 'https://schema.org',
@@ -166,7 +173,10 @@ ${related.map((r) => `        <li><a href="/guides/${esc(r.slug)}">${esc(r.short
       </div>
       <div class="rail__row">
         <h2>More guides</h2>
-        <p style="margin-top:.625rem"><a class="rail__link" href="/guides">All problem guides</a></p>
+        <p style="margin-top:.625rem">
+${moreGuides.map((m) => `          <a class="rail__link" href="/guides/${esc(m.slug)}" style="margin-top:.5rem;display:block">${esc(m.shortTitle)}</a>`).join('\n')}
+        </p>
+        <p style="margin-top:.75rem"><a class="rail__link" href="/guides">All problem guides</a></p>
       </div>
     </aside>
   </div>
