@@ -40,7 +40,6 @@ function head({ title, description, canonical, jsonLd, bodyAttrs }) {
 <link rel="icon" href="/assets/favicon-512.png" sizes="512x512" type="image/png">
 <link rel="apple-touch-icon" href="/assets/favicon-180.png">
 <link rel="stylesheet" href="/assets/tokens.css">
-<meta name="google-site-verification" content="REPLACE-WITH-YOUR-SEARCH-CONSOLE-CODE">
 <script src="/assets/analytics-config.js"></script>
 <script src="/assets/analytics.js" defer></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -133,7 +132,7 @@ function footer() {
       <div>
         <h5>Support</h5>
         <ul>
-          <li><a href="/help">Help centre</a></li>
+          <li><a href="/help">FAQ</a></li>
           <li><a href="/guides">Problem guides</a></li>
           <li><a href="/contact">Contact us</a></li>
           <li><a href="/about-the-app">About the app</a></li>
@@ -151,7 +150,7 @@ function footer() {
     </div>
     <div class="foot__bar">
       <span>© 2026 TUȘE LTD. All rights reserved. RC 8198640.</span>
-      <nav aria-label="Legal"><a href="/privacy">Privacy policy</a><a href="/terms-and-conditions">Terms and conditions</a><a href="/delete-account">Delete account</a><a href="/community-guidelines">Community guidelines</a></nav>
+      <nav aria-label="Legal"><a href="/privacy">Privacy policy</a><a href="/terms-and-conditions">Terms and conditions</a><a href="/refund-policy">Refund policy</a><a href="/delete-account">Delete account</a><a href="/community-guidelines">Community guidelines</a></nav>
     </div>
   </div>
 </footer>

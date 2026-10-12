@@ -1,2 +1,13 @@
 .vercel
 .env*
+design-system.zip
+
+# raw source photos: kept on disk, not in the repo
+baeber category pic.jpg
+chef.jpg
+client new image.png
+artisan image new.png
+hairdresser.jpg.jpg
+make up artist.jpg
+make up artist.avif
+plumber.jpg

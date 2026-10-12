@@ -31,3 +31,10 @@ assets/cat-hairdressing.jpg
 assets/cat-makeup.jpg
 assets/cat-chef.jpg
 assets/cat-plumbing.jpg
+
+# build/validation scripts and internal SEO reports: not part of the public site
+scripts
+seo
+
+# stale local archive of the design system
+design-system.zip
