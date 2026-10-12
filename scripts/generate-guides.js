@@ -56,6 +56,22 @@ function seekHref(q) {
   return `/?q=${encodeURIComponent(q)}#seek`;
 }
 
+/* Fill "{price}" from the live SERVICES price, and refuse to build if any
+   typed ₦ amount disagrees with it. Prices can no longer drift. */
+function withPrices(g) {
+  const service = byTitle(g.serviceTitle);
+  const live = service.p.match(/₦[\d,]+/)[0];
+  const fill = (v) => (typeof v === 'string' ? v.split('{price}').join(service.p)
+    : Array.isArray(v) ? v.map(fill)
+    : v && typeof v === 'object' ? Object.fromEntries(Object.entries(v).map(([k, x]) => [k, fill(x)]))
+    : v);
+  const out = fill(g);
+  for (const amount of JSON.stringify(out).match(/₦[\d,]+/g) || []) {
+    if (amount !== live) throw new Error(`Guide ${g.slug} mentions ${amount} but ${g.serviceTitle} starts ${service.p}`);
+  }
+  return out;
+}
+
 function guideHtml(g) {
   const service = byTitle(g.serviceTitle);
   const serviceSlug = SERVICE_SLUG[g.serviceTitle];
@@ -66,7 +82,7 @@ function guideHtml(g) {
   // from this guide's own position, so the 75 cross-links spread across
   // all 25 guides instead of piling onto whichever come first in the array.
   const others = GUIDES.filter((x) => x.serviceTitle !== g.serviceTitle);
-  const offset = GUIDES.indexOf(g) * 3;
+  const offset = GUIDES.findIndex((x) => x.slug === g.slug) * 3;
   const moreGuides = [0, 1, 2].map((i) => others[(offset + i) % others.length]);
 
   const jsonLd = [
@@ -125,6 +141,9 @@ function guideHtml(g) {
       <h2>The short answer</h2>
       <p>${esc(g.answer)}</p>
 
+      <h2>Why this happens</h2>
+${g.explain.map((p) => `      <p>${esc(p)}</p>`).join('\n')}
+
       <h2>Common causes</h2>
       <ul>
 ${g.causes.map((c) => `        <li>${esc(c)}</li>`).join('\n')}
@@ -144,6 +163,11 @@ ${g.stopSigns.map((c) => `        <li>${esc(c)}</li>`).join('\n')}
       <h2>How Tușe and iRanti help</h2>
       <p>Open the Tuse app and describe what is happening in your own words — for example, “${esc(g.seekQuery)}”. iRanti reads the description, suggests the likely service category and a price band, and routes you toward a verified ${esc(g.serviceTitle.toLowerCase())} professional. It is a preliminary assessment, not a definitive remote diagnosis: the artisan still inspects on site before any repair.</p>
       <p><a class="btn" data-evt="iranti_cta" href="${seekHref(g.seekQuery)}">Try describing it on Tușe</a></p>
+
+      <h2>What affects the repair cost</h2>
+      <ul>
+${g.costFactors.map((c) => `        <li>${esc(c)}</li>`).join('\n')}
+      </ul>
 
       <h2>Starting price for ${esc(g.serviceTitle)}</h2>
       <p><strong>${esc(g.serviceTitle)} on Tuse starts ${esc(service.p)}.</strong> That is starting guidance, not a guaranteed final quote. Scope, parts, and complexity can change the total — you see the price in the app before you confirm, and any on-site change needs your approval first.</p>
@@ -188,8 +212,8 @@ ${footer()}`;
 
 function hubHtml() {
   const canonical = `${ORIGIN}/guides`;
-  const title = 'Problem Guides — Fix Home Issues with Tușe | TUȘE';
-  const description = 'Practical guides for common home problems: AC not cooling, leaking pipes, generators that will not start, and more — linked to verified Tușe services and iRanti.';
+  const title = 'Home Repair Problem Guides for Nigerian Homes | TUȘE';
+  const description = '40 practical guides for common problems in Nigerian homes: AC not cooling, a generator that dies, no water from the tap, rats in the ceiling, and more.';
 
   const byService = new Map();
   for (const g of GUIDES) {
@@ -261,14 +285,21 @@ for (const g of GUIDES) {
   }
   byTitle(g.serviceTitle);
 }
-if (GUIDES.length !== 25) throw new Error(`Expected 25 guides, found ${GUIDES.length}`);
+if (GUIDES.length !== 40) throw new Error(`Expected 40 guides, found ${GUIDES.length}`);
+const slugs = new Set();
+for (const g of GUIDES) {
+  if (slugs.has(g.slug)) throw new Error(`Duplicate guide slug ${g.slug}`);
+  slugs.add(g.slug);
+  for (const k of ['explain', 'costFactors']) if (!g[k] || !g[k].length) throw new Error(`Guide ${g.slug} is missing ${k}`);
+  if (g.faqs.length < 3) throw new Error(`Guide ${g.slug} has only ${g.faqs.length} FAQs; write at least 3`);
+}
 
 const guidesDir = path.join(ROOT, 'guides');
 fs.mkdirSync(guidesDir, { recursive: true });
 fs.writeFileSync(path.join(ROOT, 'guides.html'), hubHtml(), 'utf8');
 console.log('wrote guides.html');
 for (const g of GUIDES) {
-  fs.writeFileSync(path.join(guidesDir, `${g.slug}.html`), guideHtml(g), 'utf8');
+  fs.writeFileSync(path.join(guidesDir, `${g.slug}.html`), guideHtml(withPrices(g)), 'utf8');
   console.log(`wrote guides/${g.slug}.html`);
 }
 console.log(`\nDone: 1 hub + ${GUIDES.length} guides.`);

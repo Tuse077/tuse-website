@@ -18,7 +18,8 @@
             maintain.
           - <meta name="robots" content="noindex"> EXCLUDES the page,
             same reasoning.
-          - The file's own last-modified time (mtime) becomes
+          - The date of the last git commit that touched the file
+            (today if it has uncommitted changes) becomes
             <lastmod>, so the date is never manually re-typed and
             never goes stale.
      3. Deduplicates by canonical URL (two files could theoretically
@@ -57,6 +58,24 @@ function walk(dir, out) {
   return out;
 }
 
+/* <lastmod> used to be the file's mtime. The generators rewrite every
+   page on every run, so every URL got today's date every time, and
+   Google learns to ignore a lastmod that always says "today". Now:
+     - file has uncommitted changes (or is new)  -> today
+     - otherwise                                 -> date of the last commit that touched it
+   A byte-identical regeneration leaves git clean, so it keeps its real date. */
+const { execFileSync } = require('child_process');
+const TODAY = new Date().toISOString().slice(0, 10);
+function git(args) {
+  try { return execFileSync('git', args, { cwd: ROOT, encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] }).trim(); }
+  catch (e) { return null; }
+}
+function lastModified(rel) {
+  const dirty = git(['status', '--porcelain', '--', rel]);
+  if (dirty === null || dirty !== '') return TODAY;
+  return git(['log', '-1', '--format=%cs', '--', rel]) || TODAY;
+}
+
 function extract(html, pattern) {
   const m = html.match(pattern);
   return m ? m[1] : null;
@@ -67,7 +86,7 @@ function priorityFor(urlPath) {
   if (urlPath === '/services' || urlPath === '/guides') return '0.9';
   if (urlPath.startsWith('/services/') || urlPath.startsWith('/guides/')) return '0.8';
   if (urlPath === '/help' || urlPath === '/business-enquiry') return '0.8';
-  if (urlPath === '/contact' || urlPath === '/about-the-app') return '0.7';
+  if (urlPath === '/contact' || urlPath === '/about-the-app' || urlPath === '/about') return '0.7';
   return '0.5';
 }
 
@@ -100,8 +119,7 @@ function main() {
       continue;
     }
 
-    const stat = fs.statSync(file);
-    const lastmod = stat.mtime.toISOString().slice(0, 10);
+    const lastmod = lastModified(rel);
     const urlPath = canonical.slice(SITE_ORIGIN.length) || '/';
 
     if (seen.has(canonical)) {
