@@ -25,6 +25,7 @@ const fs = require('fs');
 const path = require('path');
 const { ORIGIN, esc, head, ctaStrip, footer } = require('./page-shell');
 const GUIDES = require('./guides-data');
+const CONTENT = require('./services-content');
 
 const ROOT = path.resolve(__dirname, '..');
 
@@ -66,7 +67,16 @@ const META = {
 
 for (const s of SERVICES) {
   if (!META[s.t]) throw new Error(`No slug/label mapping for service "${s.t}" — add it to META before generating, do not skip it.`);
+  const c = CONTENT[s.t];
+  if (!c) throw new Error(`No page content for service "${s.t}" in services-content.js — write it before generating.`);
+  for (const k of ['title', 'plural', 'singular', 'intro', 'costFactors', 'prepare', 'goodJob', 'faqs']) {
+    if (!c[k] || (Array.isArray(c[k]) && !c[k].length)) throw new Error(`services-content.js: "${s.t}" is missing "${k}".`);
+  }
 }
+
+// Coverage wording comes from help.html, the only place the site states it.
+const CITIES = 'Abuja, Lagos and Port Harcourt';
+const CITIES_SHORT = 'Abuja, Lagos & Port Harcourt';
 
 /* ── 3. Related services, per service ───────────────────────────────
    The "Other services" rail used to show the same first six entries of
@@ -152,10 +162,11 @@ function faqsFor(label) {
 /* ── 5. Generate one service page ───────────────────────────────── */
 function serviceHtml(service) {
   const meta = META[service.t];
+  const c = CONTENT[service.t];
   const canonical = `${ORIGIN}/services/${meta.slug}`;
-  const title = `${service.t} — Verified Artisans | TUȘE`;
-  const description = `Book verified, identity-checked ${meta.label} professionals through Tuse. Prices ${service.p}, paid securely in-app only once the job is done.`;
-  const faqs = faqsFor(meta.label);
+  const title = `${esc(c.title)} in ${esc(CITIES_SHORT)} | TUȘE`;
+  const description = `Book a verified ${c.singular} near you in ${CITIES}. Identity-checked, priced up front ${service.p}, and paid in-app only once the job is done.`;
+  const faqs = [...c.faqs, ...faqsFor(meta.label)];
 
   const jsonLd = [
     {
@@ -172,7 +183,7 @@ function serviceHtml(service) {
     {
       '@context': 'https://schema.org',
       '@type': 'WebPage',
-      name: `${service.t} — Verified Artisans`,
+      name: `${c.title} in ${CITIES_SHORT}`,
       url: canonical,
       publisher: { '@type': 'Organization', name: 'TUȘE', url: `${ORIGIN}/` },
       breadcrumb: {
@@ -209,8 +220,8 @@ ${relatedGuides.map((g) => `          <a class="rail__link" href="/guides/${g.sl
 <section class="phead">
   <div class="wrap">
     <p class="crumb"><a href="/">Home</a> &nbsp;/&nbsp; <a href="/services">Services</a> &nbsp;/&nbsp; ${esc(service.t)}</p>
-    <h1 class="h-lg">Verified ${esc(meta.label)}, booked through Tuse.</h1>
-    <p class="lede">${esc(service.d)}. ${esc(capPrice(service.p))}, held in the app and released only once the job is done.</p>
+    <h1 class="h-lg">Verified ${esc(c.plural)}, booked through Tuse.</h1>
+    <p class="lede">${esc(service.d)}. ${esc(capPrice(service.p))}, held in the app and released only once the job is done. Deepest coverage in ${esc(CITIES)}.</p>
   </div>
 </section>
 
@@ -218,6 +229,7 @@ ${relatedGuides.map((g) => `          <a class="rail__link" href="/guides/${g.sl
   <div class="wrap pgrid">
     <div class="prose">
       <h2>What this covers</h2>
+      <p>${esc(c.intro)}</p>
       <p>Tuse's ${esc(meta.label)} category covers ${service.d.charAt(0).toLowerCase() + service.d.slice(1)}. People typically book it for:</p>
       <ul>
 ${meta.reasons.map((r) => `        <li>${esc(r)}</li>`).join('\n')}
@@ -225,6 +237,21 @@ ${meta.reasons.map((r) => `        <li>${esc(r)}</li>`).join('\n')}
 
       <h2>Pricing</h2>
       <p><strong>${esc(service.t)} on Tuse starts ${esc(service.p)}.</strong> That is a starting price, not a guaranteed final one — the actual cost depends on the scope of the job, any materials or parts required, and how complex the work turns out to be once the artisan looks at it. You see the price before you confirm the booking, and if it needs to change, the artisan raises a revised price in the app that you approve or decline before any extra work begins.</p>
+
+      <p>The price usually depends on:</p>
+      <ul>
+${c.costFactors.map((r) => `        <li>${esc(r)}</li>`).join('\n')}
+      </ul>
+
+      <h2>Before the ${esc(c.singular)} arrives</h2>
+      <ol>
+${c.prepare.map((r) => `        <li>${esc(r)}</li>`).join('\n')}
+      </ol>
+
+      <h2>What a good job looks like</h2>
+      <ul>
+${c.goodJob.map((r) => `        <li>${esc(r)}</li>`).join('\n')}
+      </ul>
 
       <h2>Not sure exactly what you need?</h2>
       <p>Describe it in your own words in the Tuse app — whether something has broken or you just want to book ${esc(meta.label)} for a specific day. iRanti reads what you type, works out what the job most likely involves and the likely price band, and routes you to the right verified professional.</p>
@@ -292,8 +319,8 @@ ${footer()}`;
 /* ── 6. Generate the /services/ hub ─────────────────────────────── */
 function hubHtml() {
   const canonical = `${ORIGIN}/services`;
-  const title = 'All Services — 19 Verified Trades | TUȘE';
-  const description = 'Every service Tuse covers, with real starting prices: plumbing, electrical work, AC repair, cleaning, barbing, makeup and 14 more. Verified artisans, booked in the app.';
+  const title = 'All Services: 19 Verified Artisan Services in Nigeria | TUȘE';
+  const description = 'Every artisan service Tuse covers in Nigeria, with real starting prices: plumbers, electricians, AC repair, cleaners, barbers, makeup artists and 13 more. Verified, booked in the app.';
 
   const jsonLd = [
     {

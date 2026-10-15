@@ -5,7 +5,7 @@
 /** @typedef {{ slug: string, serviceTitle: string, shortTitle: string, h1: string, title: string, description: string, seekQuery: string, answer: string, causes: string[], checks: string[], stopSigns: string[], relatedSlugs: string[], faqs: {q: string, a: string}[] }} Guide */
 
 /** @type {Guide[]} */
-module.exports = [
+const BASE = [
   {
     slug: 'ac-blowing-warm-air',
     serviceTitle: 'AC repair',
@@ -802,3 +802,21 @@ module.exports = [
     ],
   },
 ];
+
+/* Merge: depth for the original 25 (guides-depth.js), then batch 2
+   (guides-more.js). Every original guide must have a depth entry. */
+const DEPTH = require('./guides-depth');
+const MORE = require('./guides-more');
+
+for (const g of BASE) {
+  const x = DEPTH[g.slug];
+  if (!x) throw new Error(`guides-depth.js has no entry for "${g.slug}"`);
+  g.explain = x.explain;
+  g.costFactors = x.costFactors;
+  g.faqs = [...g.faqs, ...(x.faqs || [])];
+  if (x.addCauses) g.causes = [...g.causes, ...x.addCauses];
+  for (const k of ['title', 'h1', 'description']) if (x[k]) g[k] = x[k];
+}
+for (const slug of Object.keys(DEPTH)) if (!BASE.find((g) => g.slug === slug)) throw new Error(`guides-depth.js entry "${slug}" matches no guide`);
+
+module.exports = [...BASE, ...MORE];

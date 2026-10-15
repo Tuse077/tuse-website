@@ -122,7 +122,7 @@ function footer() {
       <div>
         <h5>Company</h5>
         <ul>
-          <li><a href="/#about">About us</a></li>
+          <li><a href="/about">About us</a></li>
           <li><a href="/services">Services</a></li>
           <li><a href="/#how">How it works</a></li>
           <li><a href="/#artisans">Become an artisan</a></li>
